@@ -22,7 +22,7 @@ return new class extends Migration
                 ->constrained('doctors')
                 ->restrictOnDelete();
 
-            $table->dateTime('date');
+            $table->dateTime('consultation_date');
             $table->text('observation')->nullable();
 
             $table->enum('status', [
