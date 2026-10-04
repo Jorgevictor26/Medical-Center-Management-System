@@ -9,7 +9,7 @@ class DoctorRepository
 {
     public function all(): Collection
     {
-        return Doctor::orderBy('full_name')->get();
+        return Doctor::orderBy('name')->get();
     }
 
     public function find(int $id): Doctor

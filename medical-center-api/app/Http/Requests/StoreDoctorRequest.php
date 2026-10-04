@@ -18,7 +18,7 @@ class StoreDoctorRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'full_name' => ['required', 'string', 'max:255'],
+            'name' => ['required', 'string', 'max:255'],
             'specialization' => ['nullable', 'string', 'max:255'],
             'phone' => ['nullable', 'string', 'max:30'],
             'email' => ['nullable', 'email', 'max:255', 'unique:doctors,email'],

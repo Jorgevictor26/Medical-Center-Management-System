@@ -21,7 +21,7 @@ class UpdateDoctorRequest extends FormRequest
         $doctorId = $this->route('doctor');
 
         return [
-            'full_name' => ['sometimes', 'string', 'max:255'],
+            'name' => ['sometimes', 'string', 'max:255'],
             'specialization' => ['nullable', 'string', 'max:255'],
             'phone' => ['nullable', 'string', 'max:30'],
             'email' => [
