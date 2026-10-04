@@ -8,6 +8,7 @@ use App\Http\Requests\UpdateConsultationRequest;
 use App\Models\Consultation;
 use App\Services\ConsultationService;
 use Illuminate\Http\JsonResponse;
+use App\Http\Requests\StoreConsultationProcedureRequest;
 
 class ConsultationController extends Controller
 {
@@ -65,5 +66,16 @@ class ConsultationController extends Controller
         return response()->json([
             'message' => 'Consultation deleted successfully.'
         ]);
+    }
+    public function addProcedure(
+        StoreConsultationProcedureRequest $request,
+        Consultation $consultation
+    ): JsonResponse {
+        $procedure = $this->consultationService->addProcedure(
+            $consultation,
+            $request->validated()
+        );
+
+        return response()->json($procedure->load('procedure'), 201);
     }
 }

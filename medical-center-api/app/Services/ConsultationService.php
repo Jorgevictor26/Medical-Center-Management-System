@@ -5,6 +5,8 @@ namespace App\Services;
 use App\Models\Consultation;
 use App\Repositories\ConsultationRepository;
 use Illuminate\Database\Eloquent\Collection;
+use App\Models\Procedure;
+use App\Models\ConsultationProcedure;
 
 class ConsultationService
 {
@@ -43,5 +45,31 @@ class ConsultationService
     public function delete(Consultation $consultation): void
     {
         $this->consultationRepository->delete($consultation);
+    }
+    public function addProcedure(
+        Consultation $consultation,
+        array $data
+    ): ConsultationProcedure {
+        if ($consultation->status === 'completed') {
+            throw new \LogicException(
+                'Cannot add procedures to a completed consultation.'
+            );
+        }
+
+        $procedure = Procedure::findOrFail($data['procedure_id']);
+
+        if (!$procedure->status) {
+            throw new \LogicException(
+                'This procedure is inactive.'
+            );
+        }
+
+        return $consultation->consultationProcedures()->create([
+            'procedure_id' => $procedure->id,
+            'quantity' => $data['quantity'],
+            'unit_price' => $procedure->price,
+            'tooth' => $data['tooth'] ?? null,
+            'observation' => $data['observation'] ?? null,
+        ]);
     }
 }

@@ -10,6 +10,10 @@ Route::apiResource(
     'consultations',
     ConsultationController::class
 );
+Route::post(
+    'consultations/{consultation}/procedures',
+    [ConsultationController::class, 'addProcedure']
+);
 Route::apiResource('procedures', ProcedureController::class);
 Route::apiResource('doctors', DoctorController::class);
 Route::apiResource('patients', PatientController::class);
