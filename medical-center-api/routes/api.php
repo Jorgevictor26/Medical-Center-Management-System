@@ -7,9 +7,11 @@ use App\Http\Controllers\Api\ProcedureController;
 use App\Http\Controllers\Api\ConsultationController;
 use App\Http\Controllers\Api\PaymentController;
 use App\Http\Controllers\Api\ReportController;
+use App\Http\Controllers\Api\DashboardController;
 
 
 
+Route::get('dashboard', [DashboardController::class, 'index']);
 Route::get('patients/{patient}/history', [PatientController::class, 'history']);
 Route::apiResource('consultations', ConsultationController::class);
 Route::apiResource('procedures', ProcedureController::class);
