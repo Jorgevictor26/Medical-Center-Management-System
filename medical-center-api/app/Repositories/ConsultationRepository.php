@@ -42,4 +42,14 @@ class ConsultationRepository
     {
         $consultation->delete();
     }
+    public function getWaiting(): Collection
+    {
+        return Consultation::with([
+            'patient',
+            'doctor'
+        ])
+            ->where('status', 'waiting')
+            ->orderBy('consultation_date')
+            ->get();
+    }
 }

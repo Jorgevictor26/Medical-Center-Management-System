@@ -9,6 +9,7 @@ use App\Models\Consultation;
 use App\Services\ConsultationService;
 use Illuminate\Http\JsonResponse;
 use App\Http\Requests\StoreConsultationProcedureRequest;
+use App\Http\Requests\UpdateConsultationStatusRequest;
 
 class ConsultationController extends Controller
 {
@@ -77,5 +78,37 @@ class ConsultationController extends Controller
         );
 
         return response()->json($procedure->load('procedure'), 201);
+    }
+    public function financialSummary(
+        Consultation $consultation
+    ): JsonResponse {
+        return response()->json(
+            $this->consultationService->getFinancialSummary(
+                $consultation
+            )
+        );
+    }
+    public function updateStatus(
+        UpdateConsultationStatusRequest $request,
+        Consultation $consultation
+    ): JsonResponse {
+        try {
+            $consultation = $this->consultationService->updateStatus(
+                $consultation,
+                $request->validated('status')
+            );
+
+            return response()->json($consultation);
+        } catch (\LogicException $e) {
+            return response()->json([
+                'message' => $e->getMessage()
+            ], 422);
+        }
+    }
+    public function waiting(): JsonResponse
+    {
+        return response()->json(
+            $this->consultationService->getWaiting()
+        );
     }
 }

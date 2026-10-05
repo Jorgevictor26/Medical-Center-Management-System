@@ -33,4 +33,15 @@ class PatientRepository
     {
         $patient->delete();
     }
+    public function getHistory(int $patientId): Patient
+    {
+        return Patient::with([
+            'consultations' => function ($query) {
+                $query->latest('consultation_date');
+            },
+            'consultations.doctor',
+            'consultations.consultationProcedures.procedure',
+            'consultations.payments',
+        ])->findOrFail($patientId);
+    }
 }

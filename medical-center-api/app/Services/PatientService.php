@@ -36,4 +36,34 @@ class PatientService
     {
         $this->patientRepository->delete($patient);
     }
+    public function getHistory(int $patientId): array
+    {
+        $patient = $this->patientRepository->getHistory($patientId);
+
+        $total = 0;
+        $paid = 0;
+
+        foreach ($patient->consultations as $consultation) {
+
+            $consultationTotal = $consultation->consultationProcedures->sum(
+                fn($item) => $item->quantity * $item->unit_price
+            );
+
+            $consultationPaid = $consultation->payments->sum('amount');
+
+            $consultation->total = $consultationTotal;
+            $consultation->paid = $consultationPaid;
+            $consultation->outstanding = $consultationTotal - $consultationPaid;
+
+            $total += $consultationTotal;
+            $paid += $consultationPaid;
+        }
+
+        return [
+            'patient' => $patient,
+            'total' => $total,
+            'paid' => $paid,
+            'outstanding' => $total - $paid,
+        ];
+    }
 }

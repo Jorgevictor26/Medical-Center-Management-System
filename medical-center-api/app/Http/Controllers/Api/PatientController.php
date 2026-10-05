@@ -58,5 +58,10 @@ class PatientController extends Controller
             'message' => 'Patient deleted successfully.'
         ]);
     }
+    public function history(int $patient): JsonResponse
+    {
+        return response()->json(
+            $this->patientService->getHistory($patient)
+        );
+    }
 }
-    
