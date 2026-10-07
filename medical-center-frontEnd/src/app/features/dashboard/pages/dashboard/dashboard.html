@@ -1,0 +1,98 @@
+@if (loading()) {
+
+<p>Loading dashboard...</p>
+
+} @else if (error()) {
+
+<p>{{ error() }}</p>
+
+} @else if (dashboard(); as data) {
+
+<div class="dashboard">
+
+    <div class="page-header">
+        <div>
+            <h2>Dashboard</h2>
+            <p>{{ data.date }}</p>
+        </div>
+    </div>
+
+    <div class="summary-grid">
+
+        <div class="summary-card">
+            <span>Total Patients</span>
+            <strong>{{ data.summary.patients }}</strong>
+        </div>
+
+        <div class="summary-card">
+            <span>Today's Consultations</span>
+            <strong>{{ data.summary.consultations_today }}</strong>
+        </div>
+
+        <div class="summary-card">
+            <span>Completed</span>
+            <strong>{{ data.summary.completed_today }}</strong>
+        </div>
+
+        <div class="summary-card">
+            <span>Waiting</span>
+            <strong>{{ data.summary.waiting }}</strong>
+        </div>
+
+        <div class="summary-card">
+            <span>Revenue Today</span>
+            <strong>{{ data.summary.revenue_today }}</strong>
+        </div>
+
+        <div class="summary-card">
+            <span>Paid Today</span>
+            <strong>{{ data.summary.paid_today }}</strong>
+        </div>
+
+        <div class="summary-card">
+            <span>Outstanding</span>
+            <strong>{{ data.summary.outstanding_today }}</strong>
+        </div>
+
+    </div>
+
+    <section class="waiting-section">
+
+        <div class="section-header">
+            <h3>Waiting Patients</h3>
+        </div>
+
+        @if (data.waiting_patients.length === 0) {
+
+        <p>No patients are currently waiting.</p>
+
+        } @else {
+
+        <div class="waiting-list">
+
+            @for (consultation of data.waiting_patients; track consultation.id) {
+
+            <div class="waiting-item">
+
+                <div>
+                    <strong>{{ consultation.patient.name }}</strong>
+                    <span>{{ consultation.patient.id_number }}</span>
+                </div>
+
+                <div>
+                    {{ consultation.doctor.name }}
+                </div>
+
+            </div>
+
+            }
+
+        </div>
+
+        }
+
+    </section>
+
+</div>
+
+}

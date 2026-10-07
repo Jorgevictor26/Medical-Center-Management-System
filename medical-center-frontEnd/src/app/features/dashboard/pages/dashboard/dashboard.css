@@ -1,0 +1,103 @@
+.dashboard {
+    max-width: 1400px;
+    margin: 0 auto;
+}
+
+.page-header {
+    margin-bottom: 24px;
+}
+
+.page-header h2 {
+    margin: 0 0 5px;
+    font-size: 28px;
+}
+
+.page-header p {
+    margin: 0;
+    color: #666;
+}
+
+
+/* Summary */
+
+.summary-grid {
+    display: grid;
+
+    grid-template-columns:
+        repeat(auto-fit, minmax(180px, 1fr));
+
+    gap: 16px;
+
+    margin-bottom: 30px;
+}
+
+.summary-card {
+    background: white;
+
+    border: 1px solid #ddd;
+    border-radius: 8px;
+
+    padding: 20px;
+}
+
+.summary-card span {
+    display: block;
+
+    color: #666;
+
+    font-size: 14px;
+
+    margin-bottom: 10px;
+}
+
+.summary-card strong {
+    font-size: 25px;
+}
+
+
+/* Waiting */
+
+.waiting-section {
+    background: white;
+
+    border: 1px solid #ddd;
+    border-radius: 8px;
+
+    padding: 20px;
+}
+
+.section-header {
+    margin-bottom: 20px;
+}
+
+.section-header h3 {
+    margin: 0;
+}
+
+.waiting-list {
+    display: flex;
+    flex-direction: column;
+}
+
+.waiting-item {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+
+    padding: 15px 0;
+
+    border-bottom: 1px solid #eee;
+}
+
+.waiting-item:last-child {
+    border-bottom: none;
+}
+
+.waiting-item strong {
+    display: block;
+}
+
+.waiting-item span {
+    color: #777;
+    font-size: 13px;
+}
